@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/google-suite-url-tools/static/css/main.c9355ab7.css",
+    "main.js": "/google-suite-url-tools/static/js/main.c76dbc35.js",
+    "static/js/453.98e5f65c.chunk.js": "/google-suite-url-tools/static/js/453.98e5f65c.chunk.js",
+    "index.html": "/google-suite-url-tools/index.html",
+    "main.c9355ab7.css.map": "/google-suite-url-tools/static/css/main.c9355ab7.css.map",
+    "main.c76dbc35.js.map": "/google-suite-url-tools/static/js/main.c76dbc35.js.map",
+    "453.98e5f65c.chunk.js.map": "/google-suite-url-tools/static/js/453.98e5f65c.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c9355ab7.css",
+    "static/js/main.c76dbc35.js"
+  ]
+}
