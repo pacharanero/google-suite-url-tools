@@ -1,30 +1,42 @@
 import React, { useState } from 'react';
-import './App.css';
+import {
+  Button,
+  Theme,
+} from "react-daisyui";
 
 function InputForm({ onGenerate }) {
   const [docUrl, setDocUrl] = useState('');
   const [folderUrl, setFolderUrl] = useState('');
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onGenerate(docUrl, folderUrl);
+  const handleGenerate = (type) => {
+    onGenerate(docUrl, folderUrl, type);
+  };
+
+  const handleFillTestDoc = () => {
+    setDocUrl('https://docs.google.com/document/d/156pDeN0RAiIwn7AaLb94klYj2GH68sE8-QsQpwls2ls/edit?tab=t.0');
+  };
+
+  const handleFillTestFolder = () => {
+    setFolderUrl('https://drive.google.com/drive/folders/18CR4clx2Wv0TmPPAMgZNx-23WRmp58FH');
   };
 
   return (
-    <form onSubmit={handleSubmit} className="input-form space-y-4">
-      <div className="form-control">
+    <fieldset className="fieldset bg-base-200 border border-base-300 p-4 rounded-box">
+      <legend className="fieldset-legend">Google Suite URL Tools</legend>
+      <div className="relative">
         <label className="label">
-          <span className="label-text">Google Doc/Sheet/Slide URL:</span>
+          <span className="label-text blur-xs">Google Doc/Sheet/Slide URL:</span>
         </label>
         <input
           type="text"
           value={docUrl}
           onChange={(e) => setDocUrl(e.target.value)}
-          placeholder="Enter Google Doc/Sheet/Slide URL"
+          placeholder="Enter full Google Doc/Sheet/Slide URL"
           className="input input-bordered w-full"
         />
+        <button onClick={handleFillTestDoc} className="btn btn-secondary absolute right-0 top-0 mt-8 mr-2">Fill Test Doc</button>
       </div>
-      <div className="form-control">
+      <div className="relative">
         <label className="label">
           <span className="label-text">Google Drive Folder URL:</span>
         </label>
@@ -32,56 +44,32 @@ function InputForm({ onGenerate }) {
           type="text"
           value={folderUrl}
           onChange={(e) => setFolderUrl(e.target.value)}
-          placeholder="Enter Google Drive Folder URL"
+          placeholder="Enter full Google Drive Folder URL"
           className="input input-bordered w-full"
         />
+        <button onClick={handleFillTestFolder} className="btn btn-secondary absolute right-0 top-0 mt-8 mr-2">Fill Test Folder</button>
       </div>
-      <button type="submit" className="btn btn-primary w-full">Generate URLs</button>
-    </form>
+      <div className="space-y-2">
+        <button onClick={() => handleGenerate('newCopy')} className="btn btn-primary w-1/3 mx-auto mb-2">Generate New Copy URL</button>
+        <button onClick={() => handleGenerate('preview')} className="btn btn-primary w-1/3 mx-auto mb-2">Generate Preview URL</button>
+        <button onClick={() => handleGenerate('exportPdf')} className="btn btn-primary w-1/3 mx-auto mb-2">Generate Export PDF URL</button>
+        <button onClick={() => handleGenerate('exportDocx')} className="btn btn-primary w-1/3 mx-auto mb-2">Generate Export DOCX URL</button>
+        <button onClick={() => handleGenerate('exportHtml')} className="btn btn-primary w-1/3 mx-auto mb-2">Generate Export HTML URL</button>
+        <button onClick={() => handleGenerate('template')} className="btn btn-primary w-1/3 mx-auto mb-2">Generate Template URL</button>
+      </div>
+    </fieldset>
   );
 }
 
-function GeneratedLinks({ docUrl, folderUrl }) {
-  if (!docUrl) return null;
-
-  const newCopyUrl = `${docUrl.replace('/edit', '/copy')}?copyDestination=${folderUrl}`;
-  const previewUrl = `${docUrl.replace('/edit', '/preview')}`;
-  const exportPdfUrl = `${docUrl.replace('/edit', '/export?format=pdf')}`;
-  const exportDocxUrl = `${docUrl.replace('/edit', '/export?format=docx')}`;
-  const exportHtmlUrl = `${docUrl.replace('/edit', '/export?format=html')}`;
-  const templateUrl = `${docUrl.replace('/edit', '/template/preview')}`;
+function GeneratedLinks({ generatedUrl }) {
+  if (!generatedUrl) return null;
 
   return (
     <div className="generated-links space-y-2">
-      <h3 className="text-lg font-bold">Generated URLs</h3>
+      <h3 className="text-lg font-bold">Generated URL</h3>
       <p>
-        <a href={newCopyUrl} target="_blank" rel="noopener noreferrer" className="link link-primary">
-          Create new copy of document in folder
-        </a>
-      </p>
-      <p>
-        <a href={previewUrl} target="_blank" rel="noopener noreferrer" className="link link-primary">
-          Open in preview mode
-        </a>
-      </p>
-      <p>
-        <a href={exportPdfUrl} target="_blank" rel="noopener noreferrer" className="link link-primary">
-          Export as PDF
-        </a>
-      </p>
-      <p>
-        <a href={exportDocxUrl} target="_blank" rel="noopener noreferrer" className="link link-primary">
-          Export as DOCX
-        </a>
-      </p>
-      <p>
-        <a href={exportHtmlUrl} target="_blank" rel="noopener noreferrer" className="link link-primary">
-          Export as HTML
-        </a>
-      </p>
-      <p>
-        <a href={templateUrl} target="_blank" rel="noopener noreferrer" className="link link-primary">
-          Open as template
+        <a href={generatedUrl} target="_blank" rel="noopener noreferrer" className="link link-primary">
+          {generatedUrl}
         </a>
       </p>
     </div>
@@ -89,17 +77,49 @@ function GeneratedLinks({ docUrl, folderUrl }) {
 }
 
 function App() {
-  const [generatedUrls, setGeneratedUrls] = useState({ docUrl: '', folderUrl: '' });
+  const [generatedUrl, setGeneratedUrl] = useState('');
 
-  const handleGenerate = (docUrl, folderUrl) => {
-    setGeneratedUrls({ docUrl, folderUrl });
+  const handleGenerate = (docUrl, folderUrl, type) => {
+    let url = '';
+    switch (type) {
+      case 'newCopy':
+        url = `${docUrl.replace('/edit', '/copy')}?copyDestination=${folderUrl}`;
+        break;
+      case 'preview':
+        url = `${docUrl.replace('/edit', '/preview')}`;
+        break;
+      case 'exportPdf':
+        url = `${docUrl.replace('/edit', '/export?format=pdf')}`;
+        break;
+      case 'exportDocx':
+        url = `${docUrl.replace('/edit', '/export?format=docx')}`;
+        break;
+      case 'exportHtml':
+        url = `${docUrl.replace('/edit', '/export?format=html')}`;
+        break;
+      case 'template':
+        url = `${docUrl.replace('/edit', '/template/preview')}`;
+        break;
+      default:
+        break;
+    }
+    setGeneratedUrl(url);
   };
 
   return (
     <div className="App container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Google Suite URL Tools</h1>
-      <InputForm onGenerate={handleGenerate} />
-      <GeneratedLinks docUrl={generatedUrls.docUrl} folderUrl={generatedUrls.folderUrl} />
+      <Theme dataTheme="valentine">
+        <h1 className="text-4xl font-bold mb-4 ">Google Suite URL Tools</h1>
+        <Theme dataTheme="dark">
+          <Button color="primary">Click me, dark!</Button>
+        </Theme>
+
+        <Theme dataTheme="light">
+          <Button color="primary">Click me, light!</Button>
+        </Theme>
+        <InputForm onGenerate={handleGenerate} />
+        <GeneratedLinks generatedUrl={generatedUrl} />
+      </Theme >
     </div>
   );
 }
