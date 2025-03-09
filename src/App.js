@@ -108,15 +108,8 @@ function App() {
 
   return (
     <div className="App container mx-auto p-4">
-      <Theme dataTheme="valentine">
+      <Theme dataTheme="retro">
         <h1 className="text-4xl font-bold mb-4 ">Google Suite URL Tools</h1>
-        <Theme dataTheme="dark">
-          <Button color="primary">Click me, dark!</Button>
-        </Theme>
-
-        <Theme dataTheme="light">
-          <Button color="primary">Click me, light!</Button>
-        </Theme>
         <InputForm onGenerate={handleGenerate} />
         <GeneratedLinks generatedUrl={generatedUrl} />
       </Theme >
