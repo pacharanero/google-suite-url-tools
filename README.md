@@ -1,70 +1,88 @@
-# Getting Started with Create React App
+## Google Suite URL Tools
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Google Suite tools have some awesome URL hacks which aren't very well known about. You can, for example, create a link which will make a **New Copy** of a **specific Google Document**, in a **specific GDrive folder**. This is super useful when you want to copy a template document and always have the created files in the same folder.
 
-## Available Scripts
+It can be difficult to remember how to invoke each of these URL hacks, so this project aims to bring together and automate for you many of the best hacks.
 
-In the project directory, you can run:
+It is written in React, and runs client-side only in your browser, on your computer. There is no server or server-side code running.  This ensures there is no security risk from copy-pasting Google Drive / GSuite links into this web page.
 
-### `npm start`
+### Usage
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Paste links into the input boxes for the GSuite docs and folders.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The webpage will create the appropriate URLs for you below, and you will be able to test the URLs by clicking on them.
 
-### `npm test`
+Bookmark these URLs to make it easy to use them when needed. If you use a Launcher like Albert then you can speed up the launching of the URLs even more.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### New Features
 
-### `npm run build`
+The following features have been added to the Google Suite URL Tools:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Generate New Copy URL**: Creates a new copy of a Google Document in a specified Google Drive folder.
+2. **Generate Preview URL**: Opens the Google Document in preview mode.
+3. **Generate Export PDF URL**: Exports the Google Document as a PDF file.
+4. **Generate Export DOCX URL**: Exports the Google Document as a DOCX file.
+5. **Generate Export HTML URL**: Exports the Google Document as an HTML file.
+6. **Generate Template URL**: Opens the Google Document as a template.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Test Buttons
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Two test buttons have been added to the interface:
 
-### `npm run eject`
+1. **Fill Test Doc**: Fills the document input with a test Google Document URL.
+2. **Fill Test Folder**: Fills the folder input with a test Google Drive folder URL.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Acknowledgements
+React.js for the reactivity
+DaisyUI for the interface
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Google Docs
+Google docs come with some neat URL tricks to use them according to your need.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Here we go...
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Create new document directly from URL:
+https://docs.new
 
-## Learn More
+If you are signed in with multiple accounts, then https://docs.new/2 will create new document with 2nd account, /3 for 3rd account, and so on.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+This is the document that I get now, and we will use this for our tricks:
+https://docs.google.com/document/d/1emMkr2qXskGDrHtRRrBwUVDNgQYXjtRYW7zTXuHyAak/edit#
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Url Tricks
+/preview Non-editable, no menubar, no toolbar, no ruler, just plain page
+/copy Opens a copy of the document, editable by the user, directly from the URL.
+/export?format=pdf Directly download a pdf of the document.
+/view?rm=embedded No title of the document, editable. Good for embedding in iframes.Hides the title of the document
+/view?rm=minimal No title, no menubar, no toolbar, only the ruler and page, editable. Good for distraction free minimal editor. -/view?rm=demo No titlebar, no menubar. Shows the toolbar. Good for a editor with basic controls.
+Google Sheets
+New Sheet
+https://sheet.new
 
-### Code Splitting
+This is the sheet that we will work with
+https://docs.google.com/spreadsheets/d/1ZpHY0TMkX_f1jNVSx_Rs0ieTE5yg8djLYvNDs4ZUwmA/edit#gid=0
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+/preview
+Shows only the sheet (no title, no toolbar, no menubar, no cellnumbers). Good to use where only html is supported.
 
-### Analyzing the Bundle Size
+/view?rm=demo
+No titlebar, no menubar. Shows editor toolbar and formular bar.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+/view?rm=minimal
+No titlebar, no menubar, no toolbar, no formulabar, just shows the sheet. Good for showing data in spreadsheet format.
 
-### Making a Progressive Web App
+/view?rm=embedded
+No titlebar, shows menubar, toolbar, formulabar. Good for embedding in websites.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Google Slides
+New Slides
+https://slides.new
 
-### Advanced Configuration
+This is the slides that we will be working with:
+https://docs.google.com/presentation/d/1X2_R8KWIadEId964QiyhLdjIH39dxTP1zOj621yWu4A/edit
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+/preview
+Shows the slides and presentation control only.
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+/view?rm=embedded
+No title and share controls.
